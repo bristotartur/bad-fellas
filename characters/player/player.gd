@@ -3,8 +3,8 @@ extends CharacterBody2D
 const TILE_SIZE     := 32.0
 const MOVE_DISTANCE := TILE_SIZE / 2.0
 
-@export var move_duration   := 0.15
-@export var animation_speed := 1.5
+@export var move_duration   := 0.14
+@export var animation_speed := 1.6
 @export var sprite_scale    := 1.25
 
 var is_moving        := false
@@ -14,7 +14,7 @@ func _ready() -> void:
 	$AnimatedSprite2D.scale = Vector2(sprite_scale, sprite_scale)
 	$AnimatedSprite2D.speed_scale = animation_speed
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_moving: return
 	
 	var direction := get_input_direction()
@@ -24,6 +24,15 @@ func _process(delta: float) -> void:
 		move(direction)
 
 func get_input_direction() -> Vector2:
+	if Input.is_action_just_pressed("move_right"):
+		return Vector2.RIGHT
+	elif Input.is_action_just_pressed("move_left"):
+		return Vector2.LEFT
+	elif Input.is_action_just_pressed("move_up"):
+		return Vector2.UP
+	elif Input.is_action_just_pressed("move_down"):
+		return Vector2.DOWN
+	
 	if Input.is_action_pressed("move_right"):
 		return Vector2.RIGHT
 	elif Input.is_action_pressed("move_left"):
@@ -36,8 +45,13 @@ func get_input_direction() -> Vector2:
 	return Vector2.ZERO
 
 func move(direction: Vector2) -> void:
-	is_moving        = true
 	facing_direction = direction
+	
+	var motion := direction * MOVE_DISTANCE
+	if test_move(global_transform, motion):
+		return
+		
+	is_moving = true
 	play_walk_animation(direction)
 	
 	var target_position := global_position + direction * MOVE_DISTANCE
