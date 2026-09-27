@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqul4igrky3fu"
-path="res://.godot/imported/player-test-altas.png-41bfc68a8f71418426f2d8fa58aa103d.ctex"
+uid="uid://cumi7f6x2k5c8"
+path="res://.godot/imported/background_atlas.png-a43d9249d4b9d730813160c748bff1e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player-test-altas.png"
-dest_files=["res://.godot/imported/player-test-altas.png-41bfc68a8f71418426f2d8fa58aa103d.ctex"]
+source_file="res://assets/background_atlas.png"
+dest_files=["res://.godot/imported/background_atlas.png-a43d9249d4b9d730813160c748bff1e1.ctex"]
 
 [params]
 

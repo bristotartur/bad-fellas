@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drl0mvl1dmus6"
-path="res://.godot/imported/enemy-test-atlas.png-60f3d912bf23b3a28269bfc8023af8bb.ctex"
+uid="uid://dvd4h4ad3h5ok"
+path="res://.godot/imported/player_atlas.png-952b408e3411b1344f1e895094b8579f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/enemy-test-atlas.png"
-dest_files=["res://.godot/imported/enemy-test-atlas.png-60f3d912bf23b3a28269bfc8023af8bb.ctex"]
+source_file="res://assets/player_atlas.png"
+dest_files=["res://.godot/imported/player_atlas.png-952b408e3411b1344f1e895094b8579f.ctex"]
 
 [params]
 

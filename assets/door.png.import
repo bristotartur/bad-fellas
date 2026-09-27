@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba0cevlooxfbm"
-path="res://.godot/imported/scenario-test-atlas.png-7f26eeb56a594721e0e2d576d2de79cd.ctex"
+uid="uid://xylouibpec4o"
+path="res://.godot/imported/door.png-b71998044d513d047c9b0091ee4a07ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/scenario-test-atlas.png"
-dest_files=["res://.godot/imported/scenario-test-atlas.png-7f26eeb56a594721e0e2d576d2de79cd.ctex"]
+source_file="res://assets/door.png"
+dest_files=["res://.godot/imported/door.png-b71998044d513d047c9b0091ee4a07ff.ctex"]
 
 [params]
 
