@@ -9,13 +9,15 @@ const MOVE_DISTANCE := TILE_SIZE / 2.0
 
 var is_moving        := false
 var facing_direction := Vector2.RIGHT
+var controls_enabled := true
+var movement_tween: Tween
 
 func _ready() -> void:
 	$AnimatedSprite2D.scale = Vector2(sprite_scale, sprite_scale)
 	$AnimatedSprite2D.speed_scale = animation_speed
 
 func _physics_process(delta: float) -> void:
-	if is_moving: return
+	if not controls_enabled or is_moving: return
 	
 	var direction := get_input_direction()
 	if direction == Vector2.ZERO:
@@ -55,11 +57,19 @@ func move(direction: Vector2) -> void:
 	play_walk_animation(direction)
 	
 	var target_position := global_position + direction * MOVE_DISTANCE
-	var tween           := create_tween()
-	tween.tween_property(self, "global_position", target_position, move_duration)
+	movement_tween = create_tween()
+	movement_tween.tween_property(self, "global_position", target_position, move_duration)
 	
-	await tween.finished
+	await movement_tween.finished
 	is_moving = false
+	movement_tween = null
+
+func set_controls_enabled(enabled: bool) -> void:
+	controls_enabled = enabled
+	if not enabled and movement_tween:
+		movement_tween.kill()
+		movement_tween = null
+		is_moving = false
 
 func can_cross_open_door(motion: Vector2) -> bool:
 	for door in get_tree().get_nodes_in_group("doors"):

@@ -3,8 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://chfr2mh2kerqk" path="res://characters/player/player.tscn" id="2_u1gi2"]
 [ext_resource type="PackedScene" uid="uid://5fpktp5kbit0" path="res://objects/Door.tscn" id="3_ffsih"]
 [ext_resource type="TileSet" uid="uid://cbxij5r83facc" path="res://assets/background_tileset.tres" id="4_tileset"]
+[ext_resource type="Script" uid="uid://ct1yer7gnxyfr" path="res://phases/phase_a/phase_a.gd" id="5_phase"]
 
 [node name="PhaseA" type="Node2D" unique_id=726847870]
+position = Vector2(640, 0)
+script = ExtResource("5_phase")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=119497245]
 
 [node name="RoomA" type="Node2D" parent="." unique_id=730228261]
 
@@ -18,10 +23,19 @@ position = Vector2(320, 96)
 [node name="DoorB" parent="RoomA" unique_id=306140934 instance=ExtResource("3_ffsih")]
 position = Vector2(64, 256)
 rotation = -1.5707964
+state = 1
+destination_door = NodePath("../../RoomB/Door")
+
+[node name="SpawnPoint" parent="RoomA/DoorB" index="2"]
+position = Vector2(2, 48)
 
 [node name="DoorC" parent="RoomA" unique_id=1352497595 instance=ExtResource("3_ffsih")]
 position = Vector2(576, 256)
 rotation = 1.5707964
+destination_door = NodePath("../../RoomC/Door")
+
+[node name="SpawnPoint" parent="RoomA/DoorC" index="2"]
+position = Vector2(-2, 48)
 
 [node name="Player" parent="RoomA" unique_id=1292941313 instance=ExtResource("2_u1gi2")]
 position = Vector2(320, 333)
@@ -34,8 +48,12 @@ tile_map_data = PackedByteArray("AADY/wAAAQAFAAAAAADY/wEAAQAFAAAAAADZ/wAAAQAFAAA
 tile_set = ExtResource("4_tileset")
 
 [node name="Door" parent="RoomB" unique_id=1175369298 instance=ExtResource("3_ffsih")]
-position = Vector2(-706, 256)
+position = Vector2(-704, 256)
 rotation = 1.5707964
+destination_door = NodePath("../../RoomA/DoorB")
+
+[node name="SpawnPoint" parent="RoomB/Door" index="2"]
+position = Vector2(-1.9999999, 52)
 
 [node name="RoomC" type="Node2D" parent="." unique_id=1285818955]
 position = Vector2(-640, 0)
@@ -47,3 +65,13 @@ tile_set = ExtResource("4_tileset")
 [node name="Door" parent="RoomC" unique_id=707299944 instance=ExtResource("3_ffsih")]
 position = Vector2(1344, 256)
 rotation = -1.5707964
+destination_door = NodePath("../../RoomA/DoorC")
+
+[node name="SpawnPoint" parent="RoomC/Door" index="2"]
+position = Vector2(2, 48)
+
+[editable path="RoomA/DoorA"]
+[editable path="RoomA/DoorB"]
+[editable path="RoomA/DoorC"]
+[editable path="RoomB/Door"]
+[editable path="RoomC/Door"]
