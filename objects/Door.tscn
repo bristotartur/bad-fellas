@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://5fpktp5kbit0"]
+
+[ext_resource type="Script" uid="uid://r8nt2xte6qbx" path="res://objects/door.gd" id="1_g8xhb"]
+[ext_resource type="Texture2D" uid="uid://xylouibpec4o" path="res://assets/door.png" id="2_ux33c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8twn"]
+atlas = ExtResource("2_ux33c")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndqfo"]
+atlas = ExtResource("2_ux33c")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdrpm"]
+atlas = ExtResource("2_ux33c")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w0r3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8twn")
+}],
+"loop": 1,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndqfo")
+}],
+"loop": 1,
+"name": &"lock",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdrpm")
+}],
+"loop": 1,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w0r3"]
+size = Vector2(32, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h4t55"]
+size = Vector2(32, 40)
+
+[node name="Door" type="Area2D" unique_id=33947184 groups=["doors"]]
+collision_layer = 4
+script = ExtResource("1_g8xhb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1094665351]
+sprite_frames = SubResource("SpriteFrames_8w0r3")
+animation = &"open"
+
+[node name="TriggerArea" type="CollisionShape2D" parent="." unique_id=353105364]
+; The trigger is the physical doorway. The wall tiles remain visible behind
+; the transparent sides of the sprite; player.gd handles crossing this gap.
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_8w0r3")
+
+[node name="ClosedCollision" type="StaticBody2D" parent="." unique_id=715108010]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClosedCollision" unique_id=2031033682]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_h4t55")

@@ -48,7 +48,7 @@ func move(direction: Vector2) -> void:
 	facing_direction = direction
 	
 	var motion := direction * MOVE_DISTANCE
-	if test_move(global_transform, motion):
+	if test_move(global_transform, motion) and not can_cross_open_door(motion):
 		return
 		
 	is_moving = true
@@ -60,6 +60,12 @@ func move(direction: Vector2) -> void:
 	
 	await tween.finished
 	is_moving = false
+
+func can_cross_open_door(motion: Vector2) -> bool:
+	for door in get_tree().get_nodes_in_group("doors"):
+		if door.has_method("accepts_player_motion") and door.call("accepts_player_motion", self, motion):
+			return true
+	return false
 
 func play_walk_animation(direction: Vector2) -> void:
 	if direction == Vector2.RIGHT:
