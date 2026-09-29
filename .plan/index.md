@@ -14,8 +14,6 @@ O jogador é um mosqueteiro que possuirá uma espada e uma capa.
 - Empurrar objetos;
 - Utilizar itens. 
 
-### Personagens
-
 ## Levels
 
 ### Level A

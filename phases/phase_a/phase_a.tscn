@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://5fpktp5kbit0" path="res://objects/Door.tscn" id="3_ffsih"]
 [ext_resource type="TileSet" uid="uid://cbxij5r83facc" path="res://assets/background_tileset.tres" id="4_tileset"]
 [ext_resource type="Script" uid="uid://ct1yer7gnxyfr" path="res://phases/phase_a/phase_a.gd" id="5_phase"]
+[ext_resource type="PackedScene" uid="uid://bulsmg6rmhjc" path="res://phases/phase_b/phase_b.tscn" id="6_phase_b"]
 
 [node name="PhaseA" type="Node2D" unique_id=726847870]
 position = Vector2(640, 0)
@@ -19,6 +20,7 @@ tile_set = ExtResource("4_tileset")
 
 [node name="DoorA" parent="RoomA" unique_id=33947184 instance=ExtResource("3_ffsih")]
 position = Vector2(320, 96)
+destination_phase = ExtResource("6_phase_b")
 
 [node name="DoorB" parent="RoomA" unique_id=306140934 instance=ExtResource("3_ffsih")]
 position = Vector2(64, 256)
@@ -35,6 +37,11 @@ destination_door = NodePath("../../RoomC/Door")
 
 [node name="SpawnPoint" parent="RoomA/DoorC" index="2"]
 position = Vector2(-2, 48)
+
+[node name="ScenarioDoor" parent="RoomA" unique_id=1890299715 instance=ExtResource("3_ffsih")]
+position = Vector2(320, 416)
+rotation = 3.1415927
+state = 1
 
 [node name="Player" parent="RoomA" unique_id=1292941313 instance=ExtResource("2_u1gi2")]
 position = Vector2(320, 333)

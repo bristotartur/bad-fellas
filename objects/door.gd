@@ -12,6 +12,7 @@ enum DoorState {
 
 @export var state := DoorState.OPEN
 @export_node_path("Area2D") var destination_door: NodePath
+@export var destination_phase: PackedScene
 
 var is_player_inside := false
 var player_inside: CharacterBody2D
@@ -25,11 +26,19 @@ func _ready() -> void:
 	update_visual()
 
 func _physics_process(_delta: float) -> void:
-	if transition_is_requested or destination_door.is_empty() or player_inside == null:
+	if (
+		transition_is_requested
+		or (destination_door.is_empty() and destination_phase == null)
+		or player_inside == null
+	):
 		return
 
 	if is_player_fully_inside(player_inside):
 		transition_is_requested = true
+		if destination_phase != null:
+			get_tree().call_deferred("change_scene_to_packed", destination_phase)
+			return
+
 		transition_requested.emit(self, player_inside)
 
 func _on_body_entered(body: Node2D) -> void:
