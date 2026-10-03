@@ -6,20 +6,20 @@ Este documento consolida as decisões já tomadas e propõe regras simples para 
 
 Criar um inimigo comum reutilizável para dificultar a travessia das salas. A primeira versão deve priorizar um comportamento completo e fácil de testar, sem tentar resolver minibosses, criaturas invocadas ou encontros especiais.
 
-- **Definido** — Haverá um único tipo de inimigo comum, reutilizado em todas as salas das fases A, B e C.
+- **Implementado** — Há dois tipos de inimigo comum: verme ósseo e morcego, reutilizados em todas as salas das fases A, B e C.
 - **Definido** — O inimigo já está na sala quando o jogador entra. A descrição da sala da chave da fase A foi ajustada para refletir isso.
 - **Definido** — Os inimigos comuns surgem em posições aleatórias de todas as salas das fases A, B e C.
-- **Implementado** — Cada uma das 11 salas das fases A, B e C tem um spawner que cria um inimigo.
+- **Implementado** — Cada uma das 11 salas das fases A, B e C tem um spawner que sorteia um verme ou morcego e cria um inimigo.
 - **Implementado** — O sorteio rejeita posições que colidam com obstáculos que bloqueiam aquele inimigo ou fiquem a menos de 96 pixels do jogador.
 - **Implementado** — O sorteio embaralha os tiles existentes e aceita somente o centro de tiles classificados como chão. No atlas atual, chão é `(2, 2)`, lago é `(5, 1)` e pilar é `(5, 3)`. As portas também entram na consulta de colisão, mesmo abertas.
-- **Definido** — Lago e pilar são tipos diferentes de obstáculo: o verme não atravessa nenhum dos dois; um futuro morcego poderá atravessar lago, mas não pilar.
+- **Implementado** — Lago e pilar são tipos diferentes de obstáculo: o verme não atravessa nenhum dos dois; o morcego sobrevoa lagos, mas é bloqueado por paredes e pilares. Ambos nascem somente sobre chão.
 
 ## Movimento e perseguição
 
 - **Definido** — O inimigo começa a perseguir assim que jogador e inimigo estão na mesma sala.
 - **Definido** — O movimento ocorre em passos de 16 pixels, alinhados ao movimento atual do jogador.
 - **Definido** — Cada passo do inimigo leva inicialmente 0,25 segundo. Tratar esse valor como ponto de partida para ajustar ao testar.
-- **Definido** — Cada tipo de inimigo define quais obstáculos bloqueiam seu caminho. O verme é bloqueado por lago e pilar; um futuro morcego será bloqueado por pilar, mas não por lago.
+- **Implementado** — Cada tipo de inimigo define quais obstáculos bloqueiam seu caminho. O verme é bloqueado por lago e pilar; o morcego é bloqueado por pilar, mas não por lago.
 - **Implementado** — O inimigo anda apenas nas quatro direções cardeais, sem diagonal, para combinar com os controles atuais do jogador.
 - **Implementado** — O TileSet identifica lago em uma camada de colisão própria. O verme colide com essa camada e com a camada de obstáculos sólidos (incluindo pilares); a seleção da posição inicial usa a máscara de colisão da cena do inimigo.
 - **Implementado com limite** — O inimigo tenta contornar obstáculos usando movimentos locais. Isso deve funcionar em salas simples; labirintos podem exigir um algoritmo de navegação em grade.
@@ -49,6 +49,7 @@ Criar um inimigo comum reutilizável para dificultar a travessia das salas. A pr
 - **Implementado** — O botão esquerdo do mouse faz o jogador avançar e recuar; a área de ataque frontal derrota no máximo um inimigo por ataque.
 - **Implementado** — Ao perder todos os pontos de vida, a partida reinicia na fase A com vida cheia e estado inicial.
 - **Implementado** — A folha `assets/bone-worm-animations.png` contém 16 quadros em quatro linhas: parado, movimento, ataque de contato e ferimento. A direção horizontal espelha o sprite; cada sala das fases A, B e C tem um spawner.
+- **Implementado** — O morcego usa `assets/bat-directional.png` para direita, esquerda e cima e `assets/bat-front.png` para baixo. Há animações de voo, ataque e ferimento nas quatro direções; ele compartilha as regras de dano e derrota do verme.
 - **Estado atual do projeto** — O sprite da espada ainda não foi feito; o ataque é representado pelo avanço e recuo do jogador.
 - **Integração indicada pelo plano** — A sala principal da fase A libera a porta A depois que todos os oponentes forem derrotados. A sala precisa acompanhar as derrotas dos inimigos; essa regra depende da implementação das salas e portas.
 

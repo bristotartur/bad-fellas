@@ -1,6 +1,9 @@
 extends Node2D
 
-const ENEMY_SCENE := preload("res://characters/enemies/enemy.tscn")
+const ENEMY_SCENES := [
+	preload("res://characters/enemies/enemy.tscn"),
+	preload("res://characters/enemies/bat.tscn"),
+]
 const MIN_PLAYER_DISTANCE := 96.0
 const GROUND_TERRAIN := 1
 
@@ -18,7 +21,8 @@ func spawn_enemy() -> void:
 	cells.shuffle()
 	var players := get_tree().get_nodes_in_group("player")
 	var player: Node2D = players[0] if not players.is_empty() else null
-	var enemy := ENEMY_SCENE.instantiate() as CharacterBody2D
+	var enemy_scene: PackedScene = ENEMY_SCENES.pick_random()
+	var enemy := enemy_scene.instantiate() as CharacterBody2D
 	var query := PhysicsShapeQueryParameters2D.new()
 	var spawn_shape := RectangleShape2D.new()
 	spawn_shape.size = Vector2(32, 32)

@@ -16,13 +16,13 @@ var is_dying := false
 
 func _ready() -> void:
 	setup_animations()
-	sprite.play("idle")
+	play_animation("idle")
 	contact_area.body_entered.connect(_on_contact_body_entered)
 	contact_area.body_exited.connect(_on_contact_body_exited)
 
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(contacted_player):
-		sprite.play("attack")
+		play_animation("attack")
 		contact_time += delta
 		if contact_time >= 1.0:
 			contact_time -= 1.0
@@ -36,27 +36,25 @@ func _physics_process(delta: float) -> void:
 
 	var players := get_tree().get_nodes_in_group("player")
 	if players.is_empty():
-		sprite.play("idle")
+		play_animation("idle")
 		return
 
 	var player := players[0] as CharacterBody2D
 	if player == null or player.get_parent() != get_parent():
-		sprite.play("idle")
+		play_animation("idle")
 		return
 
 	var direction := get_chase_direction(player.global_position - global_position)
 	if direction == Vector2.ZERO:
-		sprite.play("idle")
+		play_animation("idle")
 		return
 
 	var motion := direction * STEP_DISTANCE
 	if test_move(global_transform, motion):
-		sprite.play("idle")
+		play_animation("idle")
 		return
 
-	if direction.x != 0:
-		sprite.flip_h = direction.x < 0
-	sprite.play("walk")
+	play_animation("walk", direction)
 	movement_tween = create_tween()
 	movement_tween.tween_property(self, "global_position", global_position + motion, step_duration)
 
@@ -117,6 +115,11 @@ func setup_animations() -> void:
 	sprite.sprite_frames = frames
 	sprite.scale = Vector2.ONE * (48.0 / frame_size.x)
 
+func play_animation(action: String, direction: Vector2 = Vector2.ZERO) -> void:
+	if direction.x != 0:
+		sprite.flip_h = direction.x < 0
+	sprite.play(action)
+
 func receive_sword_hit() -> void:
 	if is_dying:
 		return
@@ -126,7 +129,7 @@ func receive_sword_hit() -> void:
 		movement_tween.kill()
 	set_deferred("collision_layer", 0)
 	contact_area.set_deferred("monitoring", false)
-	sprite.play("hurt")
+	play_animation("hurt")
 	await sprite.animation_finished
 	queue_free()
 
