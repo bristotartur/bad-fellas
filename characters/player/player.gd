@@ -8,16 +8,29 @@ const MOVE_DISTANCE := TILE_SIZE / 2.0
 @export var sprite_scale    := 1.25
 
 var is_moving        := false
+var is_attacking     := false
 var facing_direction := Vector2.RIGHT
 var controls_enabled := true
 var movement_tween: Tween
+var has_hit_target := false
+
+@onready var attack_area: Area2D = $AttackArea
+@onready var health_label: Label = $HUD/HealthPanel/HealthLabel
 
 func _ready() -> void:
+	add_to_group("player")
 	$AnimatedSprite2D.scale = Vector2(sprite_scale, sprite_scale)
 	$AnimatedSprite2D.speed_scale = animation_speed
+	attack_area.body_entered.connect(_on_attack_area_body_entered)
+	GameState.health_changed.connect(_update_health_label)
+	_update_health_label(GameState.health, GameState.MAX_HEALTH)
 
 func _physics_process(delta: float) -> void:
-	if not controls_enabled or is_moving: return
+	if not controls_enabled or is_moving or is_attacking: return
+
+	if Input.is_action_just_pressed("attack"):
+		attack()
+		return
 	
 	var direction := get_input_direction()
 	if direction == Vector2.ZERO:
@@ -63,6 +76,38 @@ func move(direction: Vector2) -> void:
 	await movement_tween.finished
 	is_moving = false
 	movement_tween = null
+
+func attack() -> void:
+	is_attacking = true
+	has_hit_target = false
+	play_walk_animation(facing_direction)
+	attack_area.position = facing_direction * (MOVE_DISTANCE + 4.0)
+	attack_area.set_deferred("monitoring", true)
+
+	var start_position := global_position
+	var target_position := start_position + facing_direction * MOVE_DISTANCE
+	if test_move(global_transform, facing_direction * MOVE_DISTANCE):
+		target_position = start_position
+
+	var attack_tween := create_tween()
+	attack_tween.tween_property(self, "global_position", target_position, move_duration / 2.0)
+	attack_tween.tween_property(self, "global_position", start_position, move_duration / 2.0)
+	await attack_tween.finished
+
+	attack_area.set_deferred("monitoring", false)
+	is_attacking = false
+	play_idle_animation()
+
+func take_damage(amount: int) -> void:
+	GameState.take_damage(amount)
+
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if not has_hit_target and body.has_method("receive_sword_hit"):
+		has_hit_target = true
+		body.call("receive_sword_hit")
+
+func _update_health_label(current: int, maximum: int) -> void:
+	health_label.text = "Vida: %d/%d" % [current, maximum]
 
 func set_controls_enabled(enabled: bool) -> void:
 	controls_enabled = enabled
