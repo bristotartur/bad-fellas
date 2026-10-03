@@ -9,7 +9,8 @@ Criar um inimigo comum reutilizável para dificultar a travessia das salas. A pr
 - **Implementado** — Há dois tipos de inimigo comum: verme ósseo e morcego, reutilizados em todas as salas das fases A, B e C.
 - **Definido** — O inimigo já está na sala quando o jogador entra. A descrição da sala da chave da fase A foi ajustada para refletir isso.
 - **Definido** — Os inimigos comuns surgem em posições aleatórias de todas as salas das fases A, B e C.
-- **Implementado** — Cada uma das 11 salas das fases A, B e C tem um spawner que sorteia um verme ou morcego e cria um inimigo.
+- **Implementado** — Cada uma das 11 salas das fases A, B e C tem um spawner que cria dois inimigos. Cada inimigo é sorteado independentemente entre verme e morcego, permitindo dois iguais ou um de cada tipo.
+- **Implementado** — Os inimigos nascem com ao menos 48 pixels de distância entre si, sem sobreposição.
 - **Implementado** — O sorteio rejeita posições que colidam com obstáculos que bloqueiam aquele inimigo ou fiquem a menos de 96 pixels do jogador.
 - **Implementado** — O sorteio embaralha os tiles existentes e aceita somente o centro de tiles classificados como chão. No atlas atual, chão é `(2, 2)`, lago é `(5, 1)` e pilar é `(5, 3)`. As portas também entram na consulta de colisão, mesmo abertas.
 - **Implementado** — Lago e pilar são tipos diferentes de obstáculo: o verme não atravessa nenhum dos dois; o morcego sobrevoa lagos, mas é bloqueado por paredes e pilares. Ambos nascem somente sobre chão.
