@@ -4,6 +4,9 @@
 
 O jogador é um mosqueteiro que possuirá uma espada e uma capa.
 
+- Começa com 10 pontos de vida.
+- Ao perder todos os pontos de vida, reinicia o jogo desde o começo, restaurando a vida e o estado inicial das salas e inimigos.
+
 ![Mosqueteiro](./images/player.png)
 
 ### Mecânicas principais
@@ -32,7 +35,7 @@ Sala do puzzle. Nela há um olho na parede inferior, outro na parede superior e 
 
 - **Sala III**
 
-Sala da chave. O objetivo é o jogador chegar até o canto superior direito da sala, pegar a chave e retornar ao início. Inimigos surgem pelo caminho para dificultar a travessia. Com a chave em mãos, o jogador consegue abrir a porta trancada na sala principal.
+Sala da chave. O objetivo é o jogador chegar até o canto superior direito da sala, pegar a chave e retornar ao início. Inimigos já estarão na sala quando o jogador entrar e dificultarão a travessia. Com a chave em mãos, o jogador consegue abrir a porta trancada na sala principal.
 
 ![Sala III](./images/level-a/room-3.png)
 

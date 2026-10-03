@@ -136,8 +136,22 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w0r3"]
 size = Vector2(28, 28)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_attack"]
+size = Vector2(24, 24)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health"]
+bg_color = Color(0.08, 0.08, 0.08, 0.88)
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1292941313]
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("1_xxgcw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=556904790]
@@ -148,3 +162,27 @@ animation = &"idle_side"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1965029339]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8w0r3")
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("RectangleShape2D_attack")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HealthPanel" type="PanelContainer" parent="HUD"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 156.0
+offset_bottom = 52.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_health")
+mouse_filter = 2
+
+[node name="HealthLabel" type="Label" parent="HUD/HealthPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Vida: 10/10"
