@@ -140,15 +140,15 @@ size = Vector2(28, 28)
 size = Vector2(24, 24)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health"]
-bg_color = Color(0.08, 0.08, 0.08, 0.88)
-corner_radius_bottom_left = 4
-corner_radius_bottom_right = 4
-corner_radius_top_left = 4
-corner_radius_top_right = 4
 content_margin_left = 10.0
 content_margin_top = 6.0
 content_margin_right = 10.0
 content_margin_bottom = 6.0
+bg_color = Color(0.08, 0.08, 0.08, 0.88)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="Player" type="CharacterBody2D" unique_id=1292941313]
 collision_mask = 6
@@ -156,6 +156,7 @@ script = ExtResource("1_xxgcw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=556904790]
 texture_filter = 1
+position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_8w0r3")
 animation = &"idle_side"
 
@@ -163,25 +164,25 @@ animation = &"idle_side"
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8w0r3")
 
-[node name="AttackArea" type="Area2D" parent="."]
+[node name="AttackArea" type="Area2D" parent="." unique_id=1815533490]
 collision_layer = 0
 collision_mask = 8
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=652212917]
 shape = SubResource("RectangleShape2D_attack")
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1036869082]
 
-[node name="HealthPanel" type="PanelContainer" parent="HUD"]
+[node name="HealthPanel" type="PanelContainer" parent="HUD" unique_id=913625915]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 156.0
 offset_bottom = 52.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_health")
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_health")
 
-[node name="HealthLabel" type="Label" parent="HUD/HealthPanel"]
+[node name="HealthLabel" type="Label" parent="HUD/HealthPanel" unique_id=2064659326]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 16

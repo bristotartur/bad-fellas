@@ -57,12 +57,10 @@ sprite_frames = SubResource("SpriteFrames_8w0r3")
 animation = &"open"
 
 [node name="TriggerArea" type="CollisionShape2D" parent="." unique_id=353105364]
-; The trigger is the physical doorway. The wall tiles remain visible behind
-; the transparent sides of the sprite; player.gd handles crossing this gap.
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_8w0r3")
 
-[node name="SpawnPoint" type="Marker2D" parent="."]
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1257691511]
 position = Vector2(0, 48)
 
 [node name="ClosedCollision" type="StaticBody2D" parent="." unique_id=715108010]

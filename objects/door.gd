@@ -101,7 +101,7 @@ func accepts_player_motion(body: CharacterBody2D, motion: Vector2) -> bool:
 	var player_half_size := player_shape.size / 2.0
 	var trigger_half_size := trigger_shape.size / 2.0
 	return (
-		abs(next_player_center.x) <= trigger_half_size.x + player_half_size.x
+		abs(next_player_center.x) + player_half_size.x <= trigger_half_size.x
 		and abs(next_player_center.y) <= trigger_half_size.y + player_half_size.y
 	)
 
