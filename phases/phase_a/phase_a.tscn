@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ct1yer7gnxyfr" path="res://phases/phase_a/phase_a.gd" id="5_phase"]
 [ext_resource type="PackedScene" uid="uid://bulsmg6rmhjc" path="res://phases/phase_b/phase_b.tscn" id="6_phase_b"]
 [ext_resource type="PackedScene" uid="uid://dl5371drsnrky" path="res://objects/lever.tscn" id="7_j586a"]
+[ext_resource type="PackedScene" uid="uid://cvnplhd77wb31" path="res://objects/mirror.tscn" id="8_rxbyc"]
 [ext_resource type="Script" uid="uid://dsdiabxj3suv6" path="res://characters/enemies/enemy_spawner.gd" id="8_spawner"]
 
 [node name="PhaseA" type="Node2D" unique_id=726847870]
@@ -66,8 +67,13 @@ destination_door = NodePath("../../RoomA/DoorB")
 [node name="SpawnPoint" parent="RoomB/Door" index="2" unique_id=1257691511]
 position = Vector2(-2, 49)
 
-[node name="Lever" parent="RoomB" unique_id=1237136146 instance=ExtResource("7_j586a")]
-position = Vector2(-1168, 240)
+[node name="Objects" type="Node" parent="RoomB" unique_id=472944253]
+
+[node name="Lever" parent="RoomB/Objects" unique_id=1237136146 instance=ExtResource("7_j586a")]
+position = Vector2(112, 240)
+
+[node name="Mirror" parent="RoomB/Objects" unique_id=887786946 instance=ExtResource("8_rxbyc")]
+position = Vector2(208, 166)
 
 [node name="RoomC" type="Node2D" parent="." unique_id=1285818955]
 position = Vector2(-640, 0)

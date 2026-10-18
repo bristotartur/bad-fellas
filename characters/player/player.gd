@@ -63,8 +63,18 @@ func move(direction: Vector2) -> void:
 	facing_direction = direction
 	
 	var motion := direction * MOVE_DISTANCE
-	if test_move(global_transform, motion) and not can_cross_open_door(motion):
-		return
+	var collision := KinematicCollision2D.new()
+	if test_move(global_transform, motion, collision):
+		if can_cross_open_door(motion):
+			pass
+		else:
+			var collider := collision.get_collider() as Node
+			if (
+				collider == null
+				or not collider.has_method("try_push")
+				or not collider.call("try_push", direction)
+			):
+				return
 		
 	is_moving = true
 	play_walk_animation(direction)
