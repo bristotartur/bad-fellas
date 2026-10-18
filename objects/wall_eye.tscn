@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://jdgk1mq7baex"]
+
+[ext_resource type="Texture2D" uid="uid://dmulvp3mbny87" path="res://assets/wall_eye.png" id="1_v46p2"]
+[ext_resource type="Script" uid="uid://c6stcd0nlawk4" path="res://objects/wall_eye.gd" id="2_eye_script"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxeih"]
+atlas = ExtResource("1_v46p2")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2pcp"]
+atlas = ExtResource("1_v46p2")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivp6x"]
+atlas = ExtResource("1_v46p2")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w0r3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxeih")
+}],
+"loop": 1,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2pcp")
+}],
+"loop": 1,
+"name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivp6x")
+}],
+"loop": 1,
+"name": &"wide_eyed",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_receiver"]
+size = Vector2(16, 12)
+
+[node name="WallEye" type="Area2D" unique_id=108629654]
+script = ExtResource("2_eye_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1096533070]
+sprite_frames = SubResource("SpriteFrames_8w0r3")
+animation = &"open"
+
+[node name="LaserPoint" type="Marker2D" parent="." unique_id=2078356502]
+
+[node name="Receiver" type="StaticBody2D" parent="." unique_id=1166270682]
+position = Vector2(0, 31)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Receiver" unique_id=1387719866]
+shape = SubResource("RectangleShape2D_receiver")
+disabled = true

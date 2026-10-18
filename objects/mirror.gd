@@ -15,6 +15,7 @@ const CARPET_TERRAIN := 2
 
 var is_moving := false
 var is_player_near := false
+var laser_busy := false
 var tile_map: TileMapLayer
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
@@ -37,12 +38,12 @@ func _ready() -> void:
 		push_warning("O espelho não encontrou carpet sob sua base.")
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("interact") && is_player_near:
+	if Input.is_action_just_pressed("interact") && is_player_near and not laser_busy:
 		rotateSide()
 		set_sprite()
 
 func try_push(direction: Vector2) -> bool:
-	if is_moving or not _can_move_on_carpet(direction):
+	if is_moving or laser_busy or not _can_move_on_carpet(direction):
 		return false
 
 	var motion := direction * MOVE_DISTANCE
@@ -85,6 +86,22 @@ func _can_move_on_carpet(direction: Vector2) -> bool:
 
 func _on_move_finished() -> void:
 	is_moving = false
+
+func get_laser_point() -> Vector2:
+	return collision_shape.global_position
+
+func reflect_laser(incoming_direction: Vector2) -> Vector2:
+	# FRONT looks down; BACK looks up. Either accepts light from the side.
+	match side:
+		Side.FRONT:
+			return Vector2.ZERO if incoming_direction == Vector2.DOWN else Vector2.DOWN
+		Side.BACK:
+			return Vector2.ZERO if incoming_direction == Vector2.UP else Vector2.UP
+		Side.LEFT:
+			return Vector2.LEFT
+		Side.RIGHT:
+			return Vector2.RIGHT
+	return Vector2.ZERO
 
 func rotateSide() -> void:
 	match side:
