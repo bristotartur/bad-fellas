@@ -60,14 +60,4 @@ func transition_player(
 	room_entered.emit(destination_room)
 
 func get_room_center(room: Node2D) -> Vector2:
-	var tile_map := room.get_node_or_null("TileMapLayer") as TileMapLayer
-	if tile_map == null or tile_map.tile_set == null:
-		return room.global_position + VIEWPORT_SIZE / 2.0
-
-	var used_rect := tile_map.get_used_rect()
-	if used_rect.size == Vector2i.ZERO:
-		return room.global_position + VIEWPORT_SIZE / 2.0
-
-	var tile_size := Vector2(tile_map.tile_set.tile_size)
-	var map_center := Vector2(used_rect.position) * tile_size + Vector2(used_rect.size) * tile_size / 2.0
-	return tile_map.to_global(map_center)
+	return room.to_global(VIEWPORT_SIZE / 2.0)
