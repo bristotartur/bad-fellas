@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const TILE_SIZE     := 32.0
 const MOVE_DISTANCE := TILE_SIZE / 2.0
+const COLLISION_PROBE_EPSILON := 0.01
 
 @export var move_duration   := 0.14
 @export var animation_speed := 1.6
@@ -64,7 +65,10 @@ func move(direction: Vector2) -> void:
 	
 	var motion := direction * MOVE_DISTANCE
 	var collision := KinematicCollision2D.new()
-	if test_move(global_transform, motion, collision):
+	# A full-length probe reports contact with the next tile as a blockage,
+	# even when the player would only touch its edge at the end of the step.
+	var probe := direction * (MOVE_DISTANCE - COLLISION_PROBE_EPSILON)
+	if test_move(global_transform, probe, collision, 0.0):
 		if can_cross_open_door(motion):
 			pass
 		else:
@@ -90,19 +94,11 @@ func move(direction: Vector2) -> void:
 func attack() -> void:
 	is_attacking = true
 	has_hit_target = false
-	play_walk_animation(facing_direction)
+	play_attack_animation()
 	attack_area.position = facing_direction * (MOVE_DISTANCE + 4.0)
 	attack_area.set_deferred("monitoring", true)
 
-	var start_position := global_position
-	var target_position := start_position + facing_direction * MOVE_DISTANCE
-	if test_move(global_transform, facing_direction * MOVE_DISTANCE):
-		target_position = start_position
-
-	var attack_tween := create_tween()
-	attack_tween.tween_property(self, "global_position", target_position, move_duration / 2.0)
-	attack_tween.tween_property(self, "global_position", start_position, move_duration / 2.0)
-	await attack_tween.finished
+	await $AnimatedSprite2D.animation_finished
 
 	attack_area.set_deferred("monitoring", false)
 	is_attacking = false
@@ -133,29 +129,37 @@ func can_cross_open_door(motion: Vector2) -> bool:
 	return false
 
 func play_walk_animation(direction: Vector2) -> void:
+	$AnimatedSprite2D.flip_h = false
 	if direction == Vector2.RIGHT:
 		$AnimatedSprite2D.play("walking_sideways")
-		$AnimatedSprite2D.flip_h = false
 	elif direction == Vector2.LEFT:
 		$AnimatedSprite2D.play("walking_sideways")
 		$AnimatedSprite2D.flip_h = true
 	elif direction == Vector2.UP:
 		$AnimatedSprite2D.play("walking_up")
-		$AnimatedSprite2D.flip_h = false
 	elif direction == Vector2.DOWN:
 		$AnimatedSprite2D.play("walking_down")
-		$AnimatedSprite2D.flip_h = false
 
 func play_idle_animation() -> void:
+	$AnimatedSprite2D.flip_h = false
 	if facing_direction == Vector2.RIGHT:
 		$AnimatedSprite2D.play("idle_side")
-		$AnimatedSprite2D.flip_h = false
 	elif facing_direction == Vector2.LEFT:
 		$AnimatedSprite2D.play("idle_side")
 		$AnimatedSprite2D.flip_h = true
 	elif facing_direction == Vector2.UP:
 		$AnimatedSprite2D.play("idle_up")
-		$AnimatedSprite2D.flip_h = false
 	elif facing_direction == Vector2.DOWN:
 		$AnimatedSprite2D.play("idle_down")
-		$AnimatedSprite2D.flip_h = false
+
+func play_attack_animation() -> void:
+	$AnimatedSprite2D.flip_h = false
+	if facing_direction == Vector2.RIGHT:
+		$AnimatedSprite2D.play("attacking_sideways")
+	elif facing_direction == Vector2.LEFT:
+		$AnimatedSprite2D.play("attacking_sideways")
+		$AnimatedSprite2D.flip_h = true
+	elif facing_direction == Vector2.UP:
+		$AnimatedSprite2D.play("attacking_up")
+	elif facing_direction == Vector2.DOWN:
+		$AnimatedSprite2D.play("attacking_down")
