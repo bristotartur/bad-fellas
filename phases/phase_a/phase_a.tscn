@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dsdiabxj3suv6" path="res://characters/enemies/enemy_spawner.gd" id="8_spawner"]
 [ext_resource type="PackedScene" uid="uid://jdgk1mq7baex" path="res://objects/wall_eye.tscn" id="9_p3url"]
 [ext_resource type="Script" uid="uid://bh2vwp6jmt6d6" path="res://phases/phase_a/laser_puzzle.gd" id="10_laser"]
+[ext_resource type="PackedScene" uid="uid://b07dpl531wawx" path="res://objects/key.tscn" id="11_0d2mr"]
 
 [node name="PhaseA" type="Node2D" unique_id=726847870]
 position = Vector2(640, 0)
@@ -27,22 +28,25 @@ tile_set = ExtResource("4_tileset")
 
 [node name="DoorA" parent="RoomA" unique_id=33947184 instance=ExtResource("3_ffsih")]
 position = Vector2(320, 96)
+state = 2
 destination_phase = ExtResource("6_phase_b")
 
-[node name="DoorC" parent="RoomA" unique_id=306140934 instance=ExtResource("3_ffsih")]
+[node name="DoorB" parent="RoomA" unique_id=306140934 instance=ExtResource("3_ffsih")]
 position = Vector2(64, 256)
 rotation = -1.5707964
+state = 1
 destination_door = NodePath("../../RoomB/Door")
 
-[node name="SpawnPoint" parent="RoomA/DoorC" index="2" unique_id=1257691511]
+[node name="SpawnPoint" parent="RoomA/DoorB" index="2" unique_id=1257691511]
 position = Vector2(2, 48)
 
-[node name="DoorB" parent="RoomA" unique_id=1352497595 instance=ExtResource("3_ffsih")]
+[node name="DoorC" parent="RoomA" unique_id=1352497595 instance=ExtResource("3_ffsih")]
 position = Vector2(576, 256)
 rotation = 1.5707964
+state = 1
 destination_door = NodePath("../../RoomC/Door")
 
-[node name="SpawnPoint" parent="RoomA/DoorB" index="2" unique_id=1257691511]
+[node name="SpawnPoint" parent="RoomA/DoorC" index="2" unique_id=1257691511]
 position = Vector2(-2, 48)
 
 [node name="ScenarioDoor" parent="RoomA" unique_id=1890299715 instance=ExtResource("3_ffsih")]
@@ -68,7 +72,7 @@ tile_set = ExtResource("4_tileset")
 [node name="Door" parent="RoomB" unique_id=1175369298 instance=ExtResource("3_ffsih")]
 position = Vector2(576, 256)
 rotation = 1.5707964
-destination_door = NodePath("../../RoomA/DoorC")
+destination_door = NodePath("../../RoomA/DoorB")
 
 [node name="SpawnPoint" parent="RoomB/Door" index="2" unique_id=1257691511]
 position = Vector2(-2, 49)
@@ -122,17 +126,21 @@ tile_set = ExtResource("4_tileset")
 
 [node name="EnemySpawner" type="Node2D" parent="RoomC" unique_id=322290660]
 script = ExtResource("8_spawner")
+enemy_count = 5
 
 [node name="Door" parent="RoomC" unique_id=707299944 instance=ExtResource("3_ffsih")]
 position = Vector2(64, 256)
 rotation = -1.5707964
-destination_door = NodePath("../../RoomA/DoorB")
+destination_door = NodePath("../../RoomA/DoorC")
 
 [node name="SpawnPoint" parent="RoomC/Door" index="2" unique_id=1257691511]
 position = Vector2(2, 48)
 
+[node name="Key" parent="RoomC" unique_id=1565579965 instance=ExtResource("11_0d2mr")]
+position = Vector2(511, 160)
+
 [editable path="RoomA/DoorA"]
-[editable path="RoomA/DoorC"]
 [editable path="RoomA/DoorB"]
+[editable path="RoomA/DoorC"]
 [editable path="RoomB/Door"]
 [editable path="RoomC/Door"]

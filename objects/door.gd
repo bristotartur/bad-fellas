@@ -21,6 +21,7 @@ var transition_is_requested := false
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	$UnlockArea.body_entered.connect(_on_unlock_area_body_entered)
 
 	update_collision()
 	update_visual()
@@ -28,6 +29,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if (
 		transition_is_requested
+		or state != DoorState.OPEN
 		or (destination_door.is_empty() and destination_phase == null)
 		or player_inside == null
 	):
@@ -42,16 +44,21 @@ func _physics_process(_delta: float) -> void:
 		transition_requested.emit(self, player_inside)
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D:
+	if body is CharacterBody2D and body.is_in_group("player"):
 		is_player_inside = true
 		player_inside = body
+		unlock_with_key()
 
 func _on_body_exited(body: Node2D) -> void:
-	if body is CharacterBody2D:
+	if body is CharacterBody2D and body.is_in_group("player"):
 		is_player_inside = false
 		if body == player_inside:
 			player_inside = null
 			transition_is_requested = false
+
+func _on_unlock_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		unlock_with_key()
 
 func get_destination_door() -> Area2D:
 	return get_node_or_null(destination_door) as Area2D
@@ -79,11 +86,22 @@ func try_open() -> bool:
 		return false
 
 	if state == DoorState.CLOSED:
-		state = DoorState.OPEN
-		update_collision()
-		update_visual()
+		open()
 
 	return true
+
+func unlock_with_key() -> bool:
+	if state != DoorState.LOCK or not GameState.hasKey:
+		return false
+
+	GameState.hasKey = false
+	open()
+	return true
+
+func open() -> void:
+	state = DoorState.OPEN
+	update_collision()
+	update_visual()
 
 func accepts_player_motion(body: CharacterBody2D, motion: Vector2) -> bool:
 	if state != DoorState.OPEN:

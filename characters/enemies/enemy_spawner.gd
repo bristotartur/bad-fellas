@@ -1,13 +1,20 @@
 extends Node2D
 
+signal all_enemies_defeated
+
 const ENEMY_SCENES := [
 	preload("res://characters/enemies/enemy.tscn"),
 	preload("res://characters/enemies/bat.tscn"),
 ]
 const MIN_PLAYER_DISTANCE := 96.0
 const MIN_ENEMY_DISTANCE := 48.0
-const ENEMIES_PER_ROOM := 2
 const GROUND_TERRAIN := 1
+
+@export var enemy_count := 2
+
+var remaining_enemies := 0
+var spawn_completed := false
+var defeat_reported := false
 
 func _ready() -> void:
 	call_deferred("spawn_enemies")
@@ -26,7 +33,7 @@ func spawn_enemies() -> void:
 	var spawn_positions: Array[Vector2] = []
 	var query := PhysicsShapeQueryParameters2D.new()
 	var spawn_shape := RectangleShape2D.new()
-	spawn_shape.size = Vector2(32, 32)
+	spawn_shape.size = Vector2(24, 24)
 	query.shape = spawn_shape
 	query.collision_mask = 1 | 2 | 4 | 8
 	query.collide_with_areas = true
@@ -51,8 +58,18 @@ func spawn_enemies() -> void:
 		enemy.name = "Enemy%d" % (spawn_positions.size() + 1)
 		room.add_child(enemy)
 		enemy.global_position = candidate
+		remaining_enemies += 1
+		enemy.connect("defeated", _on_enemy_defeated)
 		spawn_positions.append(candidate)
-		if spawn_positions.size() == ENEMIES_PER_ROOM:
+		if spawn_positions.size() == enemy_count:
+			spawn_completed = true
 			return
 
-	push_warning("Só foi possível criar %d de %d inimigos em %s." % [spawn_positions.size(), ENEMIES_PER_ROOM, room.name])
+	spawn_completed = true
+	push_warning("Só foi possível criar %d de %d inimigos em %s." % [spawn_positions.size(), enemy_count, room.name])
+
+func _on_enemy_defeated() -> void:
+	remaining_enemies -= 1
+	if spawn_completed and remaining_enemies == 0 and not defeat_reported:
+		defeat_reported = true
+		all_enemies_defeated.emit()

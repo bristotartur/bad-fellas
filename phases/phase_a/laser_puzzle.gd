@@ -1,5 +1,8 @@
 extends Node2D
 
+signal solved
+signal success_animation_finished
+
 const TILE_DISTANCE := 32.0
 const MAX_STEPS := 256
 const LASER_MASK := 15 # Player, Scenario, Triggers and Enemies.
@@ -119,6 +122,7 @@ func _finish_success() -> void:
 	laser.clear_points()
 	emitter.call("set_eye_animation", &"open")
 	target.call("set_eye_animation", &"wide_eyed")
+	solved.emit()
 	await get_tree().create_timer(1.0).timeout
 	emitter.call("set_eye_animation", &"closed")
 	target.call("set_eye_animation", &"closed")
@@ -126,3 +130,4 @@ func _finish_success() -> void:
 		mirror.set("laser_busy", false)
 	active = false
 	lever.call("lock")
+	success_animation_finished.emit()

@@ -12,6 +12,8 @@ var is_moving        := false
 var is_attacking     := false
 var facing_direction := Vector2.RIGHT
 var controls_enabled := true
+var event_frozen := false
+var animation_was_playing := false
 var movement_tween: Tween
 var has_hit_target := false
 
@@ -27,7 +29,7 @@ func _ready() -> void:
 	_update_health_label(GameState.health, GameState.MAX_HEALTH)
 
 func _physics_process(delta: float) -> void:
-	if not controls_enabled or is_moving or is_attacking: return
+	if not controls_enabled or event_frozen or is_moving or is_attacking: return
 
 	if Input.is_action_just_pressed("attack"):
 		attack()
@@ -121,6 +123,23 @@ func set_controls_enabled(enabled: bool) -> void:
 		movement_tween.kill()
 		movement_tween = null
 		is_moving = false
+
+func set_event_frozen(frozen: bool) -> void:
+	if event_frozen == frozen:
+		return
+	event_frozen = frozen
+	if movement_tween != null and movement_tween.is_valid():
+		if frozen:
+			movement_tween.pause()
+		elif controls_enabled:
+			movement_tween.play()
+	if frozen:
+		animation_was_playing = $AnimatedSprite2D.is_playing()
+		if animation_was_playing:
+			$AnimatedSprite2D.pause()
+	elif animation_was_playing:
+		$AnimatedSprite2D.play()
+		animation_was_playing = false
 
 func can_cross_open_door(motion: Vector2) -> bool:
 	for door in get_tree().get_nodes_in_group("doors"):
