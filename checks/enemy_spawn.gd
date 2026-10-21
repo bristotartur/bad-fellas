@@ -21,16 +21,21 @@ func check_spawns() -> void:
 			for room in phase.get_children():
 				if not str(room.name).begins_with("Room"):
 					continue
+				if not room.has_node("EnemySpawner"):
+					continue
 				var enemies: Array[CharacterBody2D] = []
 				for child in room.get_children():
 					if child is CharacterBody2D and child.has_method("receive_sword_hit"):
 						enemies.append(child)
-				if enemies.size() != 2:
+				var expected_count: int = int(room.get_node("EnemySpawner").get("enemy_count"))
+				if enemies.size() != expected_count:
 					fail("Quantidade incorreta de inimigos: %s/%s" % [path, room.name])
 					return
-				if enemies[0].global_position.distance_to(enemies[1].global_position) < 48.0:
-					fail("Inimigos muito próximos: %s/%s" % [path, room.name])
-					return
+				for index in range(enemies.size()):
+					for other_index in range(index + 1, enemies.size()):
+						if enemies[index].global_position.distance_to(enemies[other_index].global_position) < 48.0:
+							fail("Inimigos muito próximos: %s/%s" % [path, room.name])
+							return
 				var tile_map := room.get_node("TileMapLayer") as TileMapLayer
 				for enemy in enemies:
 					var cell := tile_map.local_to_map(tile_map.to_local(enemy.global_position))
@@ -39,7 +44,7 @@ func check_spawns() -> void:
 						fail("Inimigo fora do chão: %s/%s" % [path, room.name])
 						return
 					var shape := RectangleShape2D.new()
-					shape.size = Vector2(32, 32)
+					shape.size = Vector2(24, 24)
 					var query := PhysicsShapeQueryParameters2D.new()
 					query.shape = shape
 					query.transform = Transform2D(0, enemy.global_position)

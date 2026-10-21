@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b07dpl531wawx"]
+
+[ext_resource type="Texture2D" uid="uid://psgunnm6rewn" path="res://assets/key.png" id="1_xlllq"]
+[ext_resource type="Script" path="res://objects/key.gd" id="2_key"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_key"]
+size = Vector2(24, 24)
+
+[node name="Key" type="Area2D" unique_id=1565579965]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("2_key")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=924755799]
+texture = ExtResource("1_xlllq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_key")

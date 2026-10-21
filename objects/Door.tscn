@@ -48,7 +48,11 @@ size = Vector2(64, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h4t55"]
 size = Vector2(32, 40)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_unlock"]
+size = Vector2(64, 72)
+
 [node name="Door" type="Area2D" unique_id=33947184 groups=["doors"]]
+z_index = -1
 collision_layer = 4
 script = ExtResource("1_g8xhb")
 
@@ -57,12 +61,10 @@ sprite_frames = SubResource("SpriteFrames_8w0r3")
 animation = &"open"
 
 [node name="TriggerArea" type="CollisionShape2D" parent="." unique_id=353105364]
-; The trigger is the physical doorway. The wall tiles remain visible behind
-; the transparent sides of the sprite; player.gd handles crossing this gap.
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_8w0r3")
 
-[node name="SpawnPoint" type="Marker2D" parent="."]
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1257691511]
 position = Vector2(0, 48)
 
 [node name="ClosedCollision" type="StaticBody2D" parent="." unique_id=715108010]
@@ -71,3 +73,11 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClosedCollision" unique_id=2031033682]
 position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_h4t55")
+
+[node name="UnlockArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnlockArea"]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_unlock")

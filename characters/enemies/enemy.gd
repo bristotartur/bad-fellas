@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal defeated
+
 const STEP_DISTANCE := 16.0
 const SPRITE_SHEET := preload("res://assets/bone-worm-animations.png")
 
@@ -131,6 +133,7 @@ func receive_sword_hit() -> void:
 	contact_area.set_deferred("monitoring", false)
 	play_animation("hurt")
 	await sprite.animation_finished
+	defeated.emit()
 	queue_free()
 
 func _on_contact_body_entered(body: Node2D) -> void:
