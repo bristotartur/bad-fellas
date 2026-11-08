@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://tgc3x8cyx26q"]
+[gd_scene load_steps=3 format=3 uid="uid://tgc3x8cyx26q"]
 
 [ext_resource type="Texture2D" uid="uid://1nhat7bntwqp" path="res://assets/sleepy_toad_atlas.png" id="1_s21rm"]
+[ext_resource type="Script" path="res://characters/npcs/sleepy_frog.gd" id="2_script"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_en75k"]
 atlas = ExtResource("1_s21rm")
@@ -35,6 +36,7 @@ size = Vector2(34, 24)
 [node name="SleepyFrog" type="StaticBody2D" unique_id=772543671]
 collision_layer = 16
 collision_mask = 0
+script = ExtResource("2_script")
 
 [node name="Animations" type="AnimatedSprite2D" parent="." unique_id=692287752]
 sprite_frames = SubResource("SpriteFrames_8w0r3")

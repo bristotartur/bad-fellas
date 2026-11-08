@@ -73,12 +73,31 @@ func is_player_fully_inside(player: CharacterBody2D) -> bool:
 	if player_shape == null or trigger_shape == null:
 		return false
 
-	var player_center: Vector2 = $TriggerArea.to_local(player_collision.global_position)
+	var trigger_transform: Transform2D = $TriggerArea.global_transform
+	var player_transform: Transform2D = player_collision.global_transform
+	var player_center: Vector2 = trigger_transform.affine_inverse() * player_collision.global_position
 	var player_half_size := player_shape.size / 2.0
+	var projected_half_size := _projected_half_extents(
+		player_transform, trigger_transform, player_half_size
+	)
 	var trigger_half_size := trigger_shape.size / 2.0
 	return (
-		abs(player_center.x) + player_half_size.x <= trigger_half_size.x
-		and abs(player_center.y) + player_half_size.y <= trigger_half_size.y
+		absf(player_center.x) + projected_half_size.x <= trigger_half_size.x
+		and absf(player_center.y) + projected_half_size.y <= trigger_half_size.y
+	)
+
+func _projected_half_extents(
+	player_transform: Transform2D,
+	trigger_transform: Transform2D,
+	player_half_size: Vector2
+) -> Vector2:
+	var axis_x := trigger_transform.x.normalized()
+	var axis_y := trigger_transform.y.normalized()
+	var player_x := player_transform.x.normalized()
+	var player_y := player_transform.y.normalized()
+	return Vector2(
+		absf(axis_x.dot(player_x)) * player_half_size.x + absf(axis_x.dot(player_y)) * player_half_size.y,
+		absf(axis_y.dot(player_x)) * player_half_size.x + absf(axis_y.dot(player_y)) * player_half_size.y
 	)
 
 func try_open() -> bool:
@@ -113,14 +132,19 @@ func accepts_player_motion(body: CharacterBody2D, motion: Vector2) -> bool:
 	if player_shape == null or trigger_shape == null:
 		return false
 
-	var next_player_center: Vector2 = $TriggerArea.to_local(
+	var trigger_transform: Transform2D = $TriggerArea.global_transform
+	var next_player_center: Vector2 = trigger_transform.affine_inverse() * (
 		player_collision.global_position + motion
 	)
+	var player_transform: Transform2D = player_collision.global_transform
 	var player_half_size := player_shape.size / 2.0
+	var projected_half_size := _projected_half_extents(
+		player_transform, trigger_transform, player_half_size
+	)
 	var trigger_half_size := trigger_shape.size / 2.0
 	return (
-		abs(next_player_center.x) + player_half_size.x <= trigger_half_size.x
-		and abs(next_player_center.y) <= trigger_half_size.y + player_half_size.y
+		absf(next_player_center.x) + projected_half_size.x <= trigger_half_size.x
+		and absf(next_player_center.y) <= trigger_half_size.y + projected_half_size.y
 	)
 
 func update_collision() -> void:

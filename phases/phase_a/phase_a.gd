@@ -22,6 +22,7 @@ func _ready() -> void:
 			door.connect("transition_requested", _on_door_transition_requested)
 
 	if scene_file_path == "res://phases/phase_a/phase_a.tscn":
+		room_entered.connect(_on_room_entered)
 		$RoomA/EnemySpawner.connect("all_enemies_defeated", _on_room_a_cleared)
 		$RoomB/Objects/LaserPuzzle.connect("solved", _on_puzzle_solved)
 		$RoomB/Objects/LaserPuzzle.connect("success_animation_finished", _on_puzzle_animation_finished)
@@ -38,6 +39,10 @@ func _process(_delta: float) -> void:
 func _on_room_a_cleared() -> void:
 	$RoomA/DoorB.call("try_open")
 
+func _on_room_entered(room: Node2D) -> void:
+	if room == $RoomB:
+		$Textbox.show_message("Jogador", "Há olhos misteriosos nas paredes")
+
 func _on_puzzle_solved() -> void:
 	$RoomA/DoorC.call("try_open")
 	frozen_player = get_tree().get_first_node_in_group("player") as CharacterBody2D
@@ -52,6 +57,7 @@ func _on_puzzle_animation_finished() -> void:
 	if is_instance_valid(frozen_player):
 		frozen_player.call("set_event_frozen", false)
 	frozen_player = null
+	$Textbox.show_message("", "*Uma porta se abriu*")
 
 func _on_door_transition_requested(source_door: Area2D, player: CharacterBody2D) -> void:
 	if is_transitioning:
@@ -61,11 +67,13 @@ func _on_door_transition_requested(source_door: Area2D, player: CharacterBody2D)
 	if destination_door == null:
 		return
 
-	var destination_room := destination_door.get_parent() as Node2D
-	if destination_room == null:
+	var destination_room: Node = destination_door.get_parent()
+	while destination_room != null and destination_room.get_parent() != self:
+		destination_room = destination_room.get_parent()
+	if not destination_room is Node2D:
 		return
 
-	transition_player(player, destination_door, destination_room)
+	transition_player(player, destination_door, destination_room as Node2D)
 
 func transition_player(
 	player: CharacterBody2D,

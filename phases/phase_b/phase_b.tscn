@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://bulsmg6rmhjc"]
+[gd_scene load_steps=8 format=4 uid="uid://bulsmg6rmhjc"]
 
 [ext_resource type="PackedScene" uid="uid://pvv1tkmh8xt2" path="res://phases/rooms/Room.tscn" id="1_304eh"]
 [ext_resource type="PackedScene" uid="uid://5fpktp5kbit0" path="res://objects/Door.tscn" id="2_gwcvv"]
@@ -7,9 +7,12 @@
 [ext_resource type="Script" uid="uid://ct1yer7gnxyfr" path="res://phases/phase_a/phase_a.gd" id="5_phase"]
 [ext_resource type="PackedScene" uid="uid://tgc3x8cyx26q" path="res://characters/npcs/sleepy_frog.tscn" id="5_qh6pr"]
 [ext_resource type="Script" uid="uid://dsdiabxj3suv6" path="res://characters/enemies/enemy_spawner.gd" id="6_spawner"]
+[ext_resource type="PackedScene" path="res://gui/textbox.tscn" id="7_textbox"]
 
 [node name="PhaseB" type="Node2D" unique_id=1365921023]
 script = ExtResource("5_phase")
+
+[node name="Textbox" parent="." instance=ExtResource("7_textbox")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2018710429]
 position = Vector2(960, 240)
@@ -25,6 +28,7 @@ position = Vector2(320, 333)
 
 [node name="SleepyFrog" parent="RoomA" unique_id=772543671 instance=ExtResource("5_qh6pr")]
 position = Vector2(320, 126)
+scale = Vector2(1.4, 1.4)
 
 [node name="Doors" type="Node" parent="RoomA" unique_id=362534784]
 
