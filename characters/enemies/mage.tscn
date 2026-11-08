@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cr1ctkrym5pdv"]
+
+[ext_resource type="Texture2D" uid="uid://clr4xalocvtpq" path="res://assets/mage_atlas.png" id="1_wsfva"]
+[ext_resource type="Script" path="res://characters/enemies/mage.gd" id="2_mage"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewm63"]
+atlas = ExtResource("1_wsfva")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccx31"]
+atlas = ExtResource("1_wsfva")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w0r3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewm63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccx31")
+}],
+"loop": 1,
+"name": &"floating",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_scenario"]
+size = Vector2(24, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_projectiles"]
+size = Vector2(40, 16)
+
+[node name="Mage" type="CharacterBody2D" unique_id=2114127061]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("2_mage")
+
+[node name="Animations" type="AnimatedSprite2D" parent="." unique_id=16411692]
+sprite_frames = SubResource("SpriteFrames_8w0r3")
+animation = &"floating"
+autoplay = "floating"
+
+[node name="ScenarioCollision" type="CollisionShape2D" parent="." unique_id=295230026]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_scenario")
+
+[node name="ProjectileArea" type="Area2D" parent="." unique_id=160836212]
+collision_layer = 8
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileArea" unique_id=648711052]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_projectiles")

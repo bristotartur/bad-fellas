@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dax824pg2wm31"]
+
+[ext_resource type="Texture2D" uid="uid://dca1s5ovw733u" path="res://assets/fireball_atlas.png" id="1_ltln1"]
+[ext_resource type="Script" path="res://objects/fireball.gd" id="2_script"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sllmb"]
+atlas = ExtResource("1_ltln1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o6fc"]
+atlas = ExtResource("1_ltln1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22dfg"]
+atlas = ExtResource("1_ltln1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lfy7"]
+atlas = ExtResource("1_ltln1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w0r3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sllmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o6fc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22dfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lfy7")
+}],
+"loop": 1,
+"name": &"spinning",
+"speed": 5.0
+}]
+
+[node name="Fireball" type="Area2D" unique_id=85268132]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("2_script")
+
+[node name="Animations" type="AnimatedSprite2D" parent="." unique_id=1302530448]
+sprite_frames = SubResource("SpriteFrames_8w0r3")
+animation = &"spinning"
+autoplay = "spinning"
+frame = 3
+frame_progress = 0.77283067

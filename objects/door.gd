@@ -67,7 +67,9 @@ func get_exit_position() -> Vector2:
 	return $SpawnPoint.global_position
 
 func is_player_fully_inside(player: CharacterBody2D) -> bool:
-	var player_collision := player.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	var player_collision := player.get_node_or_null("Collision") as CollisionShape2D
+	if player_collision == null:
+		return false
 	var player_shape := player_collision.shape as RectangleShape2D
 	var trigger_shape := $TriggerArea.shape as RectangleShape2D
 	if player_shape == null or trigger_shape == null:
@@ -126,7 +128,9 @@ func accepts_player_motion(body: CharacterBody2D, motion: Vector2) -> bool:
 	if state != DoorState.OPEN:
 		return false
 
-	var player_collision := body.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	var player_collision := body.get_node_or_null("Collision") as CollisionShape2D
+	if player_collision == null:
+		return false
 	var player_shape := player_collision.shape as RectangleShape2D
 	var trigger_shape := $TriggerArea.shape as RectangleShape2D
 	if player_shape == null or trigger_shape == null:

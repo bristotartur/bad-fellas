@@ -4,6 +4,7 @@ signal defeated
 
 const STEP_DISTANCE := 16.0
 const SPRITE_SHEET := preload("res://assets/bone-worm-animations.png")
+const HIT_FLASH := preload("res://characters/hit_flash.gd")
 
 @export var step_duration := 0.25
 
@@ -125,6 +126,7 @@ func play_animation(action: String, direction: Vector2 = Vector2.ZERO) -> void:
 func receive_sword_hit() -> void:
 	if is_dying:
 		return
+	HIT_FLASH.apply(sprite)
 	is_dying = true
 	set_physics_process(false)
 	if movement_tween != null:
