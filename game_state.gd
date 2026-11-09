@@ -2,11 +2,12 @@ extends Node
 
 signal health_changed(current: int, maximum: int)
 
-const MAX_HEALTH := 10
+const MAX_HEALTH    := 10
 const INITIAL_SCENE := "res://phases/phase_a/phase_a.tscn"
 
-var health := MAX_HEALTH
-var hasKey := false
+var health   := MAX_HEALTH
+var hasKey   := false
+var hasFlute := false
 
 func take_damage(amount: int) -> void:
 	if amount <= 0 or health <= 0:

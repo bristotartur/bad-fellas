@@ -12,6 +12,7 @@ const CAMERA_SHAKE_PIXELS := 4
 
 var is_transitioning := false
 var camera_shaking := false
+var camera_shake_pixels := CAMERA_SHAKE_PIXELS
 var camera_rest_offset := Vector2.ZERO
 var frozen_player: CharacterBody2D
 
@@ -32,8 +33,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if camera_shaking:
 		camera.offset = camera_rest_offset + Vector2(
-			randi_range(-CAMERA_SHAKE_PIXELS, CAMERA_SHAKE_PIXELS),
-			randi_range(-CAMERA_SHAKE_PIXELS, CAMERA_SHAKE_PIXELS)
+			randi_range(-camera_shake_pixels, camera_shake_pixels),
+			randi_range(-camera_shake_pixels, camera_shake_pixels)
 		)
 
 func _on_room_a_cleared() -> void:

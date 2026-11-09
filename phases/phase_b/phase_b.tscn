@@ -4,11 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://5fpktp5kbit0" path="res://objects/Door.tscn" id="2_gwcvv"]
 [ext_resource type="PackedScene" uid="uid://chfr2mh2kerqk" path="res://characters/player/player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://drgpte37daqlp" path="res://phases/phase_c/phase_c.tscn" id="4_phase_c"]
-[ext_resource type="Script" uid="uid://ct1yer7gnxyfr" path="res://phases/phase_a/phase_a.gd" id="5_phase"]
+[ext_resource type="Script" uid="uid://bamjas1g5u8to" path="res://phases/phase_b/phase_b.gd" id="5_phase"]
 [ext_resource type="PackedScene" uid="uid://tgc3x8cyx26q" path="res://characters/npcs/sleepy_frog.tscn" id="5_qh6pr"]
 [ext_resource type="Script" uid="uid://dsdiabxj3suv6" path="res://characters/enemies/enemy_spawner.gd" id="6_spawner"]
 [ext_resource type="PackedScene" uid="uid://cv3rm6reda58i" path="res://gui/textbox.tscn" id="7_textbox"]
 [ext_resource type="PackedScene" uid="uid://cr1ctkrym5pdv" path="res://characters/enemies/mage.tscn" id="8_mage"]
+[ext_resource type="PackedScene" uid="uid://dut8i3tu8l00" path="res://objects/flute.tscn" id="8_qv8kq"]
 
 [node name="PhaseB" type="Node2D" unique_id=1365921023]
 script = ExtResource("5_phase")
@@ -92,6 +93,9 @@ scale = Vector2(1.2, 1.2)
 position = Vector2(320, 416)
 rotation = 3.1415927
 destination_door = NodePath("../../RoomB/DoorB")
+
+[node name="Flute" parent="RoomC" unique_id=1938748048 instance=ExtResource("8_qv8kq")]
+position = Vector2(320, 257)
 
 [node name="RoomD" parent="." unique_id=767825211 instance=ExtResource("1_304eh")]
 position = Vector2(1280, 0)

@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal defeated
+
 const STEP_DISTANCE := 4.0
 const STEPS_FROM_CENTER := 12
 const FIREBALL := preload("res://objects/fireball.tscn")
@@ -60,4 +62,5 @@ func receive_fireball_hit() -> void:
 		set_deferred("collision_layer", 0)
 		$ProjectileArea.set_deferred("collision_layer", 0)
 		await get_tree().create_timer(HIT_FLASH.DURATION).timeout
+		defeated.emit()
 		queue_free()
