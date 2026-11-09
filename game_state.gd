@@ -8,6 +8,7 @@ const INITIAL_SCENE := "res://phases/phase_a/phase_a.tscn"
 var health   := MAX_HEALTH
 var hasKey   := false
 var hasFlute := false
+var met_wise_toad := false
 
 func take_damage(amount: int) -> void:
 	if amount <= 0 or health <= 0:
@@ -21,5 +22,6 @@ func take_damage(amount: int) -> void:
 func restart_game() -> void:
 	health = MAX_HEALTH
 	hasKey = false
+	met_wise_toad = false
 	health_changed.emit(health, MAX_HEALTH)
 	get_tree().change_scene_to_file(INITIAL_SCENE)
