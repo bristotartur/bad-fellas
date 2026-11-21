@@ -261,3 +261,12 @@ func play_block_animation() -> void:
 		$Animations.play("blocking_down")
 	else:
 		$Animations.play("blocking_side")
+
+func play_flute_animation() -> void:
+	$Animations.flip_h = false
+	$Animations.play("playing_flute")
+
+func face_flute_teacher() -> void:
+	$Animations.flip_h = false
+	$Animations.play("idle_up")
+	$Animations.stop()

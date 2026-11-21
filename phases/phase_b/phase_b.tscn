@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bamjas1g5u8to" path="res://phases/phase_b/phase_b.gd" id="5_phase"]
 [ext_resource type="PackedScene" uid="uid://tgc3x8cyx26q" path="res://characters/npcs/sleepy_toad.tscn" id="5_qh6pr"]
 [ext_resource type="Script" uid="uid://dsdiabxj3suv6" path="res://characters/enemies/enemy_spawner.gd" id="6_spawner"]
+[ext_resource type="PackedScene" path="res://gui/flute_minigame.tscn" id="7_flute_game"]
 [ext_resource type="PackedScene" uid="uid://cv3rm6reda58i" path="res://gui/textbox.tscn" id="7_textbox"]
 [ext_resource type="PackedScene" uid="uid://cr1ctkrym5pdv" path="res://characters/enemies/mage.tscn" id="8_mage"]
 [ext_resource type="PackedScene" uid="uid://dut8i3tu8l00" path="res://objects/flute.tscn" id="8_qv8kq"]
@@ -16,6 +17,8 @@
 script = ExtResource("5_phase")
 
 [node name="Textbox" parent="." unique_id=156837206 instance=ExtResource("7_textbox")]
+
+[node name="FluteMinigame" parent="." unique_id=909830158 instance=ExtResource("7_flute_game")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2018710429]
 position = Vector2(960, 240)

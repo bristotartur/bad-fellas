@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal dialogue_finished
+
 @export var characters_per_second := 30.0
 
 var revealed_characters := 0.0
@@ -7,6 +9,7 @@ var interaction_frame := -1
 var dialogue_lines: Array = []
 var dialogue_index := 0
 var dialogue_speaker := ""
+var restore_controls_on_close := true
 
 @onready var speaker: Label = $Speaker
 @onready var message: Label = $Message
@@ -47,6 +50,7 @@ func show_dialogue(who: String, lines: Array) -> void:
 	_set_message(who, dialogue_lines[0])
 
 func _set_message(who: String, text: String) -> void:
+	message.show()
 	speaker.text = who
 	speaker.visible = not who.is_empty()
 	message.offset_top = message_top if speaker.visible else (speaker.offset_top + message_top) / 2.0
@@ -62,5 +66,7 @@ func hide_message() -> void:
 	visible = false
 	dialogue_lines.clear()
 	var player := get_tree().get_first_node_in_group("player")
-	if player and player.has_method("set_controls_enabled"):
+	if restore_controls_on_close and player and player.has_method("set_controls_enabled"):
 		player.call("set_controls_enabled", true)
+	restore_controls_on_close = true
+	dialogue_finished.emit()

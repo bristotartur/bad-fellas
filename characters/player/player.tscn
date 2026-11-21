@@ -63,6 +63,10 @@ region = Rect2(0, 144, 64, 48)
 atlas = ExtResource("2_xxgcw")
 region = Rect2(0, 96, 64, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cx7u"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(0, 336, 64, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_58jvb"]
 atlas = ExtResource("2_xxgcw")
 region = Rect2(64, 48, 64, 48)
@@ -198,6 +202,14 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cx7u")
+}],
+"loop": 1,
+"name": &"playing_flute",
 "speed": 5.0
 }, {
 "frames": [{

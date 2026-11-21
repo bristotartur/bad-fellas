@@ -9,6 +9,9 @@ var health   := MAX_HEALTH
 var hasKey   := false
 var hasFlute := false
 var met_wise_toad := false
+var heard_wise_toad_flute_intro := false
+var completed_wise_toad_song := false
+var sleepy_toad_awake := false
 
 func take_damage(amount: int) -> void:
 	if amount <= 0 or health <= 0:
@@ -23,5 +26,8 @@ func restart_game() -> void:
 	health = MAX_HEALTH
 	hasKey = false
 	met_wise_toad = false
+	heard_wise_toad_flute_intro = false
+	completed_wise_toad_song = false
+	sleepy_toad_awake = false
 	health_changed.emit(health, MAX_HEALTH)
 	get_tree().change_scene_to_file(INITIAL_SCENE)

@@ -18,6 +18,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Speaker" type="Label" parent="." unique_id=189303487]
+visible = false
 offset_left = 76.0
 offset_top = 350.0
 offset_right = 544.0
@@ -28,6 +29,7 @@ theme_override_font_sizes/font_size = 20
 text = "<SPEAKER>"
 
 [node name="Message" type="Label" parent="." unique_id=167284273]
+visible = false
 offset_left = 76.0
 offset_top = 376.0
 offset_right = 564.0
