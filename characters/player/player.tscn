@@ -39,6 +39,18 @@ region = Rect2(128, 240, 64, 48)
 atlas = ExtResource("2_xxgcw")
 region = Rect2(0, 240, 64, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxgcw"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(64, 288, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgd8i"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(0, 288, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7b6hw"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(128, 288, 64, 48)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_on558"]
 atlas = ExtResource("2_xxgcw")
 region = Rect2(0, 48, 64, 48)
@@ -50,6 +62,10 @@ region = Rect2(0, 144, 64, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_icpky"]
 atlas = ExtResource("2_xxgcw")
 region = Rect2(0, 96, 64, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cx7u"]
+atlas = ExtResource("2_xxgcw")
+region = Rect2(0, 336, 64, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_58jvb"]
 atlas = ExtResource("2_xxgcw")
@@ -142,6 +158,30 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xxgcw")
+}],
+"loop": 1,
+"name": &"blocking_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgd8i")
+}],
+"loop": 1,
+"name": &"blocking_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7b6hw")
+}],
+"loop": 1,
+"name": &"blocking_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_on558")
 }],
 "loop": 1,
@@ -162,6 +202,14 @@ animations = [{
 }],
 "loop": 1,
 "name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cx7u")
+}],
+"loop": 1,
+"name": &"playing_flute",
 "speed": 5.0
 }, {
 "frames": [{
@@ -234,16 +282,16 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="Player" type="CharacterBody2D" unique_id=1292941313]
-collision_mask = 2
+collision_mask = 18
 script = ExtResource("1_xxgcw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=556904790]
+[node name="Animations" type="AnimatedSprite2D" parent="." unique_id=556904790]
 texture_filter = 1
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_8w0r3")
-animation = &"walking_up"
+animation = &"idle_side"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1965029339]
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1965029339]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8w0r3")
 

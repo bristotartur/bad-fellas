@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://tgc3x8cyx26q"]
+
+[ext_resource type="Script" uid="uid://b4kx5q6moo6f4" path="res://characters/npcs/sleepy_toad.gd" id="1_3cd0c"]
+[ext_resource type="Texture2D" uid="uid://1nhat7bntwqp" path="res://assets/sleepy_toad_atlas.png" id="2_volxc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_en75k"]
+atlas = ExtResource("2_volxc")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7t7bw"]
+atlas = ExtResource("2_volxc")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w0r3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_en75k")
+}],
+"loop": 1,
+"name": &"awake",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7t7bw")
+}],
+"loop": 1,
+"name": &"sleeping",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w0r3"]
+size = Vector2(34, 24)
+
+[node name="SleepyToad" type="StaticBody2D" unique_id=772543671]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_3cd0c")
+
+[node name="Animations" type="AnimatedSprite2D" parent="." unique_id=692287752]
+sprite_frames = SubResource("SpriteFrames_8w0r3")
+animation = &"sleeping"
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1763857692]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_8w0r3")

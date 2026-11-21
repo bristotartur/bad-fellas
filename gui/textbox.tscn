@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://cv3rm6reda58i"]
+
+[ext_resource type="Texture2D" uid="uid://tybnv2iv3lq7" path="res://assets/text_box.png" id="1_box"]
+[ext_resource type="Script" uid="uid://ci0eljwhltjry" path="res://gui/textbox.gd" id="2_script"]
+[ext_resource type="FontFile" uid="uid://bn4dy7aemrwr2" path="res://assets/fonts/Blockblueprint-LV7z5.ttf" id="3_font"]
+
+[node name="Textbox" type="CanvasLayer" unique_id=325659986]
+script = ExtResource("2_script")
+
+[node name="Frame" type="TextureRect" parent="." unique_id=140507135]
+offset_left = 46.0
+offset_top = 342.0
+offset_right = 594.0
+offset_bottom = 442.0
+mouse_filter = 2
+texture = ExtResource("1_box")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Speaker" type="Label" parent="." unique_id=189303487]
+visible = false
+offset_left = 76.0
+offset_top = 350.0
+offset_right = 544.0
+offset_bottom = 374.0
+theme_override_colors/font_color = Color(0.4509804, 0.7647059, 0.2509804, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 20
+text = "<SPEAKER>"
+
+[node name="Message" type="Label" parent="." unique_id=167284273]
+visible = false
+offset_left = 76.0
+offset_top = 376.0
+offset_right = 564.0
+offset_bottom = 432.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 20
+text = "<DIALOGUE MESSAGE>"
+autowrap_mode = 3

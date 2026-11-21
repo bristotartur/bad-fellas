@@ -11,10 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://jdgk1mq7baex" path="res://objects/wall_eye.tscn" id="9_p3url"]
 [ext_resource type="Script" uid="uid://bh2vwp6jmt6d6" path="res://phases/phase_a/laser_puzzle.gd" id="10_laser"]
 [ext_resource type="PackedScene" uid="uid://b07dpl531wawx" path="res://objects/key.tscn" id="11_0d2mr"]
+[ext_resource type="PackedScene" path="res://gui/textbox.tscn" id="12_textbox"]
 
 [node name="PhaseA" type="Node2D" unique_id=726847870]
 position = Vector2(640, 0)
 script = ExtResource("5_phase")
+
+[node name="Textbox" parent="." instance=ExtResource("12_textbox")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=119497245]
 

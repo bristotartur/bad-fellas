@@ -1,0 +1,259 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" uid="uid://tybnv2iv3lq7" path="res://assets/text_box.png" id="1_box"]
+[ext_resource type="Script" path="res://gui/flute_minigame.gd" id="2_script"]
+[ext_resource type="Texture2D" uid="uid://cqjidwjfo5pw6" path="res://assets/arrow_notes.png" id="4_notes"]
+[ext_resource type="Script" uid="uid://cdi1uo3t31mri" path="res://gui/flute_note.gd" id="5_note_script"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6s5y4"]
+atlas = ExtResource("4_notes")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whck7"]
+atlas = ExtResource("4_notes")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmg3c"]
+atlas = ExtResource("4_notes")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hapjn"]
+atlas = ExtResource("4_notes")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyl68"]
+atlas = ExtResource("4_notes")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aboki"]
+atlas = ExtResource("4_notes")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gew3a"]
+atlas = ExtResource("4_notes")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2gub"]
+atlas = ExtResource("4_notes")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cu2a"]
+atlas = ExtResource("4_notes")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ytlh"]
+atlas = ExtResource("4_notes")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilr1n"]
+atlas = ExtResource("4_notes")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfmru"]
+atlas = ExtResource("4_notes")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkdfx"]
+atlas = ExtResource("4_notes")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1n4i"]
+atlas = ExtResource("4_notes")
+region = Rect2(96, 0, 32, 32)
+
+[node name="FluteMinigame" type="CanvasLayer"]
+script = ExtResource("2_script")
+
+[node name="Frame" type="TextureRect" parent="." unique_id=140507135]
+offset_left = 46.0
+offset_top = 342.0
+offset_right = 594.0
+offset_bottom = 442.0
+mouse_filter = 2
+texture = ExtResource("1_box")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NoteSequences" type="Control" parent="." unique_id=1761200135]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="Sequence1" type="Control" parent="NoteSequences" unique_id=126690387]
+visible = false
+anchors_preset = 0
+offset_left = 184.0
+offset_top = 380.0
+offset_right = 448.0
+offset_bottom = 404.0
+mouse_filter = 2
+
+[node name="Note1" type="TextureRect" parent="NoteSequences/Sequence1" unique_id=936529425]
+layout_mode = 0
+offset_left = -108.0
+offset_top = 24.0
+offset_right = -84.0
+offset_bottom = 48.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_6s5y4")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 3
+
+[node name="Note2" type="TextureRect" parent="NoteSequences/Sequence1" unique_id=38308410]
+layout_mode = 0
+offset_left = -60.0
+offset_top = 24.0
+offset_right = -36.0
+offset_bottom = 48.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_whck7")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 3
+
+[node name="Note3" type="TextureRect" parent="NoteSequences/Sequence1" unique_id=248153912]
+layout_mode = 0
+offset_left = -12.0
+offset_top = 8.0
+offset_right = 12.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_kmg3c")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 1
+
+[node name="Note4" type="TextureRect" parent="NoteSequences/Sequence1" unique_id=1089520526]
+layout_mode = 0
+offset_left = 84.0
+offset_top = -9.0
+offset_right = 108.0
+offset_bottom = 15.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_hapjn")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 2
+
+[node name="Note5" type="TextureRect" parent="NoteSequences/Sequence1" unique_id=1264679871]
+layout_mode = 0
+offset_left = 180.0
+offset_top = -24.0
+offset_right = 204.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_hyl68")
+expand_mode = 1
+script = ExtResource("5_note_script")
+
+[node name="Note6" type="TextureRect" parent="NoteSequences/Sequence1" unique_id=424803221]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 8.0
+offset_right = 60.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_aboki")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 1
+
+[node name="Note7" type="TextureRect" parent="NoteSequences/Sequence1" unique_id=1297162553]
+layout_mode = 0
+offset_left = 132.0
+offset_top = -9.0
+offset_right = 156.0
+offset_bottom = 15.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_gew3a")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 2
+
+[node name="Sequence2" type="Control" parent="NoteSequences" unique_id=632723184]
+anchors_preset = 0
+offset_left = 184.0
+offset_top = 380.0
+offset_right = 448.0
+offset_bottom = 404.0
+mouse_filter = 2
+
+[node name="Note1" type="TextureRect" parent="NoteSequences/Sequence2" unique_id=1976631212]
+layout_mode = 0
+offset_left = -108.0
+offset_top = -24.0
+offset_right = -84.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_w2gub")
+expand_mode = 1
+script = ExtResource("5_note_script")
+
+[node name="Note2" type="TextureRect" parent="NoteSequences/Sequence2" unique_id=506110267]
+layout_mode = 0
+offset_left = -60.0
+offset_top = -24.0
+offset_right = -36.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_8cu2a")
+expand_mode = 1
+script = ExtResource("5_note_script")
+
+[node name="Note3" type="TextureRect" parent="NoteSequences/Sequence2" unique_id=1286726506]
+layout_mode = 0
+offset_left = -12.0
+offset_top = -9.0
+offset_right = 12.0
+offset_bottom = 15.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_5ytlh")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 2
+
+[node name="Note4" type="TextureRect" parent="NoteSequences/Sequence2" unique_id=1149503494]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -9.0
+offset_right = 60.0
+offset_bottom = 15.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_ilr1n")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 2
+
+[node name="Note5" type="TextureRect" parent="NoteSequences/Sequence2" unique_id=1078058946]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 8.0
+offset_right = 108.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_wfmru")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 1
+
+[node name="Note6" type="TextureRect" parent="NoteSequences/Sequence2" unique_id=98272420]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 8.0
+offset_right = 156.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_mkdfx")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 1
+
+[node name="Note7" type="TextureRect" parent="NoteSequences/Sequence2" unique_id=2091023617]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 24.0
+offset_right = 204.0
+offset_bottom = 48.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_n1n4i")
+expand_mode = 1
+script = ExtResource("5_note_script")
+direction = 3

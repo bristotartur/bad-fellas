@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bn26tvxnv6igb"]
+
+[ext_resource type="Texture2D" uid="uid://cncasuuk18gnq" path="res://assets/wise_toad.png" id="1_i0xjp"]
+[ext_resource type="Script" uid="uid://c0tggxk0iesqc" path="res://characters/npcs/wise_toad.gd" id="1_ijkoa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w0r3"]
+size = Vector2(30, 26)
+
+[node name="WiseToad" type="StaticBody2D" unique_id=689862389]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_ijkoa")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=70775667]
+texture = ExtResource("1_i0xjp")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=2103808684]
+shape = SubResource("RectangleShape2D_8w0r3")
